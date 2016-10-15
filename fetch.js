@@ -1,5 +1,5 @@
-var request = require("superagent");
-
+"use strict"; 
+let request = require("superagent");
 module.exports = {
 	fetch_data_get : function( url, query_params ){
 		return new Promise(( resolve, reject ) => {

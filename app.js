@@ -1,12 +1,24 @@
+"use strict"; 
 let async = require("async");
 let cheerio = require("cheerio");
 let fs = require("fs");
 let path = require("path");
+var mkdirp = require('mkdirp');
 
 let setting = require("./setting.js");
 
 let fetch_data_get = require("./fetch.js").fetch_data_get;
 let fetch_data_post = require("./fetch.js").fetch_data_post;
+
+//本地存储目录
+var dir = './images/';
+
+//创建目录
+mkdirp(dir, function(err) {
+    if(err){
+        console.log(err);
+    }
+});
 
 // 存储所有图片链接的数组
 let photos=[  ];
@@ -70,7 +82,7 @@ function downloadImg( asyncNum ){
 		fetch_data_get( photo, {  } )
 			.then(( result ) => {
 				let fileName = path.basename( photo );
-				fs.writeFile( "./img/" + fileName, result.body, function( err ){
+				fs.writeFile( dir + fileName, result.body, function( err ){
 					if( err ) {
 						console.log( err );
 					} else {

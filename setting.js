@@ -1,3 +1,5 @@
+"use strict"; 
+let answerId = "34937418";
 module.exports = {
 	header : {
 		"Accept" : "*/*",
@@ -7,13 +9,13 @@ module.exports = {
 		"Content-Length" : "132",
 		"Content-Type" : "application/x-www-form-urlencoded; charset=UTF-8",
 		"Host" : "www.zhihu.com",
-		"Referer" : "https://www.zhihu.com/question/34937418",
+		"Referer" : "https://www.zhihu.com/question/"+answerId,
 		"User-Agent" : "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0",
 		"X-Requested-With" : "XMLHttpRequest"
 	},
-	firstLink : "https://www.zhihu.com/question/34937418",
+	firstLink : "https://www.zhihu.com/question/"+answerId,
 	ajaxLink : "https://www.zhihu.com/node/QuestionAnswerListV2",
-	post_data_h : "method=next&params=%7B%22url_token%22%3A34937418%2C%22pagesize%22%3A20%2C%22offset%22%3A",
+	post_data_h : "method=next&params=%7B%22url_token%22%3A"+answerId+"%2C%22pagesize%22%3A20%2C%22offset%22%3A",
 	post_data_f : "%7D&_xsrf=98360a2df02783902146dee374772e51",
 	//  发送ajax间隔时间
 	ajax_timeout : 5,
