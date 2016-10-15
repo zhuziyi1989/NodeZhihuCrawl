@@ -6,7 +6,9 @@
 
 # 配置
 例如某个问题的地址: https://www.zhihu.com/question/31159026
+
 地址最后的数字部分，即问题的ID: 31159026
+
 在 `setting.js ` 中设置为 `let answerId = "31159026";`
 
 # 执行
