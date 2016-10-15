@@ -11,7 +11,7 @@ let fetch_data_get = require("./fetch.js").fetch_data_get;
 let fetch_data_post = require("./fetch.js").fetch_data_post;
 
 //本地存储目录
-var dir = './images/';
+var dir = './images/'+'/'+answerId;
 
 //创建目录
 mkdirp(dir, function(err) {
