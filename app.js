@@ -5,13 +5,13 @@ let fs = require("fs");
 let path = require("path");
 var mkdirp = require('mkdirp');
 
-let setting = require("./setting.js");
+var setting = require("./setting.js");
 
 let fetch_data_get = require("./fetch.js").fetch_data_get;
 let fetch_data_post = require("./fetch.js").fetch_data_post;
 
 //本地存储目录
-var dir = './images/'+'/'+answerId;
+var dir = './images/'+'/'+setting.answerId+'/';
 
 //创建目录
 mkdirp(dir, function(err) {

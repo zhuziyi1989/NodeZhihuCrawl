@@ -1,5 +1,5 @@
 "use strict"; 
-let answerId = "34937418";
+var answerId = "34937418";
 module.exports = {
 	header : {
 		"Accept" : "*/*",
@@ -13,6 +13,7 @@ module.exports = {
 		"User-Agent" : "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0",
 		"X-Requested-With" : "XMLHttpRequest"
 	},
+	answerId: answerId,
 	firstLink : "https://www.zhihu.com/question/"+answerId,
 	ajaxLink : "https://www.zhihu.com/node/QuestionAnswerListV2",
 	post_data_h : "method=next&params=%7B%22url_token%22%3A"+answerId+"%2C%22pagesize%22%3A20%2C%22offset%22%3A",
