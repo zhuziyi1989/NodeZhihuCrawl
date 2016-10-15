@@ -11,7 +11,7 @@ let fetch_data_get = require("./fetch.js").fetch_data_get;
 let fetch_data_post = require("./fetch.js").fetch_data_post;
 
 //本地存储目录
-var dir = './images/'+'/'+setting.answerId+'/';
+var dir = './images/'+'/'+setting.questionId+'/';
 
 //创建目录
 mkdirp(dir, function(err) {
@@ -36,7 +36,7 @@ function getInitUrlList(){
 					photos.push( $(image).attr( "src" ) );
 				});
 			});
-			console.log( "已成功抓取" + photos.length + "张图片的链接" );
+			console.log( "成功抓取首屏 " + photos.length + " 张图片的链接" );
 			getIAjaxUrlList( 20 );
 		})
 		.catch(( error ) => console.log( error ));
@@ -47,7 +47,7 @@ function getIAjaxUrlList( offset ){
 	fetch_data_post( setting.ajaxLink, setting.post_data_h + offset + setting.post_data_f, setting.header )
 		.then(( result ) => {
 			let response = JSON.parse( result.text );
-			if( offset == 100 ) {
+			if( offset == 20 ) {
 				// 把所有的数组元素拼接在一起
 				let $ = cheerio.load( response.msg.join("") );
 				let answerList = $( ".zm-item-answer" );
@@ -55,15 +55,15 @@ function getIAjaxUrlList( offset ){
 					let images = $( answer ).find( '.zm-item-rich-text img' );
 					images.map(function( i, image ){
 						photos.push( $(image).attr("src") );
-					});
+					});					
 				});
 				setTimeout(function() {
-					offset += 20;
-					console.log( "已成功抓取 " + photos.length + " 张图片的链接" );
+					offset += 10;
+					console.log( "再次成功抓取 " + photos.length + " 张图片的链接" );
 					getIAjaxUrlList( offset );
 				}, setting.ajax_timeout)
 			} else {
-				console.log( "图片链接全部获取完毕，一共有" + photos.length + "条图片链接" );
+				console.log( "图片链接全部获取完毕，一共有" + photos.length + "条图片链接");
 				return downloadImg( setting.download_v );
 			}
 		})
@@ -72,11 +72,19 @@ function getIAjaxUrlList( offset ){
 
 function downloadImg( asyncNum ){
 	// 有一些图片链接地址不完整没有“http:”头部,帮它们拼接完整
-	for( let i=0; i<photos.length; i++ ){
-		if( photos[i].indexOf( "http" ) == -1 ) {
-			photos[i] = "http:" + photos[i]
+	let photosLength = photos.length
+	for( let i=0; i<photosLength; i++ ){
+		if( photos[i].indexOf("_b.") > -1 ){
+			photos[i] = photos[i].replace(/_b./, '_r.')
+			if( photos[i].indexOf( "http" ) == -1 ) {
+				photos[i] = "http:" + photos[i]
+			}
+		} else{
+			photos[i] = "https://pic4.zhimg.com/d8db93cd267465c86b7b300118219667_xs.jpg"
 		}
 	};
+	console.log(photos)
+
 	console.log( "即将异步并发下载图片，当前并发数为:" + asyncNum );
 	async.mapLimit( photos, asyncNum, function( photo, callback ){
 		fetch_data_get( photo, {  } )
